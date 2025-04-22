@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simon Says!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    h1 {
+      font-size: 4.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+    }
+    p {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 200px);
+      grid-gap: 30px;
+      justify-content: center;
+    }
+    .button {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+    .green {
+      background-color: #4caf50;
+    }
+    .red {
+      background-color: #f44336;
+    }
+    .yellow {
+      background-color: #ffeb3b;
+    }
+    .blue {
+      background-color: #2196f3;
+    }
+    .orange {
+      background-color: #ff5722;
+    }
+    .purple {
+      background-color: #9c27b0;
+    }
+    .button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+    .button:active {
+      transform: scale(0.95);
+    }
+    #message {
+      font-size: 2em;
+      margin-top: 40px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .play-again {
+      display: none;
+      font-size: 1.6em;
+      color: #ffeb3b;
+      cursor: pointer;
+      margin-top: 30px;
+      text-decoration: underline;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .play-again:hover {
+      color: #fff;
+    }
+
+    .start-btn {
+      font-size: 1.8em;
+      background-color: #ffeb3b;
+      color: #2196f3;
+      padding: 15px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+      margin-bottom: 30px;
+    }
+
+    .start-btn:hover {
+      background-color: #2196f3;
+      color: #ffeb3b;
+      transform: scale(1.1);
+    }
+
+    .start-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Button flashing animation */
+    @keyframes flash {
+      0% { opacity: 1; transform: scale(1.1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* Glow effect for buttons when active */
+    .button.active {
+      animation: flash 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simon Says!</h1>
+  <p>Follow the pattern and prove your memory skills!</p>
+
+  <button id="startBtn" class="start-btn">Start Game</button>
+
+  <div class="buttons" style="display:none;">
+    <div class="button green" id="green">G</div>
+    <div class="button red" id="red">R</div>
+    <div class="button yellow" id="yellow">Y</div>
+    <div class="button blue" id="blue">B</div>
+    <div class="button orange" id="orange">O</div>
+    <div class="button purple" id="purple">P</div>
+  </div>
+
+  <div id="message">Press "Start Game" to begin!</div>
+  <div id="level" style="font-size: 2em; margin-top: 20px; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);"></div>
+  <div class="play-again" id="playAgain">Play Again</div>
+
+  <script>
+    // Define the buttons and other important variables
+    const startBtn = document.getElementById('startBtn');
+    const buttons = document.querySelectorAll('.button');
+    const messageDisplay = document.getElementById('message');
+    const playAgainBtn = document.getElementById('playAgain');
+    const buttonColors = ['green', 'red', 'yellow', 'blue', 'orange', 'purple']; // Colors of the buttons
+    const levelDisplay = document.getElementById('level');
+    let sequence = []; // Sequence that Simon will show
+    let playerSequence = []; // Sequence the player tries to match
+    let level = 0; // The current level
+    let isSequencePlaying = false; // Is Simon showing the sequence or is the player playing?
+
+    // Function to start a new game
+    function startGame() {
+      sequence = []; // Reset sequence
+      playerSequence = []; // Reset player's sequence
+      level = 0; // Start at level 1
+      playAgainBtn.style.display = 'none'; // Hide play again button
+      startBtn.style.display = 'none'; // Hide start button
+      document.querySelector('.buttons').style.display = 'flex'; // Show game buttons
+      messageDisplay.textContent = 'Get ready for Level 1!'; // Show message for the first level
+      levelDisplay.textContent = `Level: ${level}`; // Display the level
+
+      // Start the game after 5 seconds
+      setTimeout(nextSequence, 5000); // Delay game start by 5 seconds
+    }
+
+    // Function to generate and show the next sequence
+    function nextSequence() {
+      isSequencePlaying = true; // Simon is showing the sequence
+      playerSequence = []; // Reset player's input
+      level++; // Increase level
+      messageDisplay.textContent = `Level ${level}: Follow the pattern!`; // Display level message
+      levelDisplay.textContent = `Level: ${level}`; // Update the level display
+      
+      const randomColor = buttonColors[Math.floor(Math.random() * buttonColors.length)]; // Pick a random color
+      sequence.push(randomColor); // Add to sequence
+      
+      // Flash the buttons in the sequence
+      sequence.forEach((color, index) => {
+        setTimeout(() => {
+          flashButton(color); // Flash each button one by one
+        }, index * 800); // Delay to create a sequence effect
+      });
+
+      // After the sequence is shown, let the player start clicking
+      setTimeout(() => {
+        isSequencePlaying = false;
+        messageDisplay.textContent = "Now it's your turn! Click the buttons!";
+      }, sequence.length * 800 + 500);
+    }
+
+    // Function to make a button flash (visual effect)
+    function flashButton(color) {
+      const button = document.getElementById(color);
+      button.classList.add('active'); // Add flashing effect
+      setTimeout(() => {
+        button.classList.remove('active'); // Remove flashing effect after animation
+      }, 600);
+    }
+
+    // Function to check if the player's sequence is correct
+    function checkPlayerSequence(color) {
+      if (isSequencePlaying) return; // Don't check if Simon is showing the sequence
+
+      playerSequence.push(color); // Add color to player's sequence
+      const currentIndex = playerSequence.length - 1;
+      
+      // Check if the player's sequence matches Simon's
+      if (playerSequence[currentIndex] !== sequence[currentIndex]) {
+        messageDisplay.textContent = 'Oops! Game Over! You lost!'; // If wrong, game over
+        playAgainBtn.style.display = 'block'; // Show play again button
+        return;
+      }
+
+      // If the player matched the entire sequence, move to the next level
+      if (playerSequence.length === sequence.length) {
+        setTimeout(nextSequence, 1000); // Show the next sequence after a short delay
+      }
+    }
+
+    // Event listeners for each button
+    buttons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        const color = event.target.id; // Get the clicked button's color
+        flashButton(color); // Flash the clicked button
+        checkPlayerSequence(color); // Check if the player's input is correct
+      });
+    });
+
+    // Play Again button event listener
+    playAgainBtn.addEventListener('click', startGame);
+
+    // Start the game when the page loads
+    startBtn.addEventListener('click', startGame);
+  </script>
+</body>
+</html>

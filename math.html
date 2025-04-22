@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Math Quiz for Kids</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffefd5, #ffb6c1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .quiz-container {
+      max-width: 900px;
+      width: 100%;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border: 5px solid #ffa07a;
+    }
+
+    h2 {
+      color: #ff4500;
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px #ffdab9;
+    }
+
+    p.description {
+      font-size: 18px;
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .intro-section {
+      background-color: #f8d7da;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .intro-section p {
+      font-size: 16px;
+      color: #721c24;
+    }
+
+    .question {
+      margin-bottom: 25px;
+    }
+
+    .question p {
+      font-size: 20px;
+      color: #6a5acd;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .options label {
+      display: block;
+      font-size: 18px;
+      color: #555;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f0e68c;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #ffdab9;
+    }
+
+    .options label:hover {
+      background: #ffa07a;
+      color: #ffffff;
+    }
+
+    .options input {
+      margin-right: 10px;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 15px 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      background-color: #ff4500;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #ff6347;
+      transform: scale(1.05);
+    }
+
+    .score-display {
+      text-align: center;
+      font-size: 22px;
+      color: #228b22;
+      margin-top: 20px;
+      display: none;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+    }
+
+    @media (max-width: 768px) {
+      .quiz-container {
+        padding: 25px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .question p {
+        font-size: 18px;
+      }
+
+      .submit-btn {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="quiz-container">
+    <h2>🌟 Fun Math Quiz for Kids 🌟</h2>
+    <p class="description">Let's have fun and test your math skills! 🚀✨</p>
+
+    <!-- Introductory Section -->
+    <div class="intro-section">
+      <p>In this quiz, you'll answer 10 fun math questions! The questions are based on basic arithmetic like addition,
+        subtraction, multiplication, and division. There are also some questions that involve powers and square roots!
+        Ready to test your skills?</p>
+    </div>
+
+    <form id="quizForm" onsubmit="return calculateScore(event)">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1️⃣ <strong>What is 6 × 7? </strong></p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="42"> 42</label>
+          <label><input type="radio" name="q1" value="36"> 36</label>
+          <label><input type="radio" name="q1" value="48"> 48</label>
+          <label><input type="radio" name="q1" value="52"> 52</label>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2️⃣ <strong>Solve: (10 + 5) × 3 - 4 ÷ 2 </strong></p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="45"> 45</label>
+          <label><input type="radio" name="q2" value="43"> 43</label>
+          <label><input type="radio" name="q2" value="46"> 46</label>
+          <label><input type="radio" name="q2" value="40"> 40</label>
+        </div>
+      </div>
+
+       <!-- Question 3 -->
+      <div class="question">
+        <p>3️⃣ <strong>What is the value of √81? </strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q3" value="8"> 8</label>
+          <label><input type="radio" name="q3" value="7"> 7</label>
+          <label><input type="radio" name="q3" value="9"> 9</label>
+          <label><input type="radio" name="q3" value="10"> 10</label>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4️⃣ <strong>What is 15 ÷ 3?</strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q4" value="6"> 6</label>
+          <label><input type="radio" name="q4" value="5"> 5</label>
+          <label><input type="radio" name="q4" value="4"> 4</label>
+          <label><input type="radio" name="q4" value="7"> 7</label>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5️⃣ <strong>What is 76 - 38?</strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q5" value="40"> 40</label>
+          <label><input type="radio" name="q5" value="42"> 42</label>
+          <label><input type="radio" name="q5" value="38"> 38</label>
+          <label><input type="radio" name="q5" value="44"> 44</label>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6️⃣ <strong>What is 8 × 9?</strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q6" value="64"> 64</label>
+          <label><input type="radio" name="q6" value="81"> 81</label>
+          <label><input type="radio" name="q6" value="70"> 70</label>
+          <label><input type="radio" name="q6" value="72"> 72</label>
+        </div>
+      </div>
+
+      <!-- Question 7 -->
+      <div class="question">
+        <p>7️⃣ <strong>Solve: 25 + 25</strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q7" value="45"> 45</label>
+          <label><input type="radio" name="q7" value="50"> 50</label>
+          <label><input type="radio" name="q7" value="55"> 55</label>
+          <label><input type="radio" name="q7" value="60"> 60</label>
+        </div>
+      </div>
+
+      <!-- Question 8 -->
+      <div class="question">
+        <p>8️⃣ <strong>What is 9²?</strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q8" value="72"> 72</label>
+          <label><input type="radio" name="q8" value="81"> 81</label>
+          <label><input type="radio" name="q8" value="90"> 90</label>
+          <label><input type="radio" name="q8" value="99"> 99</label>
+        </div>
+      </div>
+
+      <!-- Question 9 -->
+      <div class="question">
+        <p>9️⃣ <strong>Simplify: (5 × 5) + (4 × 4)</strong></p>
+        <div class="options">
+          <label><input type="radio" name="q9" value="81"> 81</label>
+          <label><input type="radio" name="q9" value="41"> 41</label>
+          <label><input type="radio" name="q9" value="65"> 65</label>
+          <label><input type="radio" name="q9" value="56"> 56</label>
+        </div>
+      </div>
+
+      <!-- Question 10 -->
+      <div class="question">
+        <p>🔟 <strong>What is 100 ÷ 5?</strong></p>
+        <div class="options">
+
+          <label><input type="radio" name="q10" value="25"> 25</label>
+          <label><input type="radio" name="q10" value="15"> 15</label>
+          <label><input type="radio" name="q10" value="20"> 20</label>
+          <label><input type="radio" name="q10" value="10"> 10</label>
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit">🎉 Submit Quiz 🎉</button>
+    </form>
+
+    <div class="score-display" id="scoreDisplay"></div>
+  </div>
+
+  <script>
+    function calculateScore(event) {
+      event.preventDefault();
+
+      let score = 0;
+
+      // Correct answers for all 10 questions
+      const answers = {
+        q1: "42",
+        q2: "43",
+        q3: "9",
+        q4: "5",
+        q5: "38",
+        q6: "72",
+        q7: "50",
+        q8: "81",
+        q9: "41",
+        q10: "20"
+      };
+
+      // Loop through all questions to calculate the score
+      for (let i = 1; i <= 10; i++) {
+        const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selectedAnswer && selectedAnswer.value === answers[`q${i}`]) {
+          score++;
+        }
+      }
+
+      // Display the score
+      const scoreDisplay = document.getElementById("scoreDisplay");
+      scoreDisplay.textContent = `🎯 Your score: ${score}/10 🎯`;
+      scoreDisplay.style.display = 'block';
+    }
+  </script>
+
+</body>
+
+</html>

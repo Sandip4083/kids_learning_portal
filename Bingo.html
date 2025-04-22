@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Bingo</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      color: #4b0082;
+    }
+
+    h1 {
+      color: #ff6347;
+      font-size: 2.5em;
+      margin-top: 20px;
+    }
+
+    .instructions {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .bingo-container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .bingo-cell {
+      width: 60px;
+      height: 60px;
+      background-color: #ff1493;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.5em;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .bingo-cell.marked {
+      background-color: #32cd32;
+      color: white;
+    }
+
+    .question-container {
+      margin-top: 20px;
+      font-size: 1.5em;
+    }
+
+    .answer-input {
+      padding: 10px;
+      font-size: 1.5em;
+      margin-top: 10px;
+      width: 100px;
+      text-align: center;
+      border-radius: 5px;
+      border: 2px solid #4b0082;
+    }
+
+    button {
+      background-color: #ff1493;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+    }
+
+    #bingo-status {
+      font-size: 2em;
+      margin-top: 20px;
+      color: #32cd32;
+    }
+  </style>
+</head>
+<body>
+  <h1>Math Bingo</h1>
+  <p class="instructions">Answer math problems and mark the answers on your Bingo card!</p>
+
+  <div class="bingo-container" id="bingo-card"></div>
+
+  <div class="question-container" id="question-container"></div>
+  <input type="number" class="answer-input" id="answer-input" placeholder="Answer" />
+  <button onclick="checkAnswer()">Submit Answer</button>
+
+  <div id="bingo-status"></div>
+
+  <button onclick="startGame()">Start New Game</button>
+
+  <script>
+    let bingoCard = [];
+    let currentQuestion = {};
+    let bingoStatus = false;
+    const operators = ['+', '-', '*'];
+    const bingoNumbers = generateBingoNumbers();
+
+    // Start new game
+    function startGame() {
+      bingoCard = [];
+      bingoStatus = false;
+      document.getElementById('bingo-status').innerText = '';
+
+      // Generate Bingo Card
+      for (let i = 0; i < 25; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('bingo-cell');
+        cell.dataset.number = bingoNumbers[i];
+        cell.textContent = bingoNumbers[i];
+        cell.onclick = () => markBingoCell(cell);
+        document.getElementById('bingo-card').appendChild(cell);
+      }
+
+      // Generate a math question
+      generateMathQuestion();
+    }
+
+    // Generate random bingo numbers between 1 and 75
+    function generateBingoNumbers() {
+      let numbers = [];
+      while (numbers.length < 25) {
+        const num = Math.floor(Math.random() * 75) + 1;
+        if (!numbers.includes(num)) {
+          numbers.push(num);
+        }
+      }
+      return numbers;
+    }
+
+    // Generate a random math question
+    function generateMathQuestion() {
+      const num1 = Math.floor(Math.random() * 20) + 1;
+      const num2 = Math.floor(Math.random() * 20) + 1;
+      const operator = operators[Math.floor(Math.random() * operators.length)];
+      let question = `${num1} ${operator} ${num2}`;
+      let answer = calculateAnswer(num1, num2, operator);
+
+      // Ensure that the answer is one of the numbers in the bingo card
+      if (!bingoNumbers.includes(answer)) {
+        generateMathQuestion(); // Recursively call if the answer is not on the bingo card
+        return;
+      }
+
+      currentQuestion = { question, answer };
+      document.getElementById('question-container').innerText = `Solve: ${question}`;
+    }
+
+    // Calculate the answer based on operator
+    function calculateAnswer(num1, num2, operator) {
+      switch (operator) {
+        case '+':
+          return num1 + num2;
+        case '-':
+          return num1 - num2;
+        case '*':
+          return num1 * num2;
+      }
+    }
+
+    // Check the player's answer
+    function checkAnswer() {
+      const answerInput = document.getElementById('answer-input');
+      const answer = parseInt(answerInput.value);
+      if (answer === currentQuestion.answer) {
+        markBingoNumber(currentQuestion.answer);
+        generateMathQuestion();
+        answerInput.value = '';
+      } else {
+        alert('Incorrect! Try again.');
+      }
+    }
+
+    // Mark the bingo card with the correct answer
+    function markBingoNumber(number) {
+      const bingoCells = document.querySelectorAll('.bingo-cell');
+      bingoCells.forEach(cell => {
+        if (parseInt(cell.dataset.number) === number) {
+          cell.classList.add('marked');
+        }
+      });
+      checkBingo();
+    }
+
+    // Mark the bingo cell when clicked
+    function markBingoCell(cell) {
+      if (!cell.classList.contains('marked')) {
+        const number = parseInt(cell.dataset.number);
+        cell.classList.add('marked');
+        checkBingo();
+      }
+    }
+
+    // Check for Bingo (full row, column, or diagonal)
+    function checkBingo() {
+      if (bingoStatus) return;
+
+      // Check rows, columns, and diagonals
+      const bingoCells = document.querySelectorAll('.bingo-cell');
+      let rows = [0, 0, 0, 0, 0];
+      let cols = [0, 0, 0, 0, 0];
+      let diag1 = 0, diag2 = 0;
+
+      bingoCells.forEach((cell, index) => {
+        const row = Math.floor(index / 5);
+        const col = index % 5;
+        if (cell.classList.contains('marked')) {
+          rows[row]++;
+          cols[col]++;
+          if (row === col) diag1++;
+          if (row + col === 4) diag2++;
+        }
+      });
+
+      // If any row, column or diagonal is fully marked
+      if (rows.includes(5) || cols.includes(5) || diag1 === 5 || diag2 === 5) {
+        bingoStatus = true;
+        document.getElementById('bingo-status').innerText = 'Bingo! You won!';
+      }
+    }
+
+    // Start the game automatically when the page loads
+    window.onload = startGame;
+  </script>
+</body>
+</html>

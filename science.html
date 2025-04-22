@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Section</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f0f4f8;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #6a1b9a;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    header:hover {
+      background-color: #9c27b0;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    header p {
+      font-size: 18px;
+    }
+
+    main {
+      padding: 40px;
+    }
+
+    .topic {
+      border-radius: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .topic:hover {
+      transform: translateY(-5px);
+    }
+
+    .topic h2 {
+      margin-top: 0;
+      font-size: 28px;
+      color: #6a1b9a;
+      padding: 20px;
+      background-color: #f1f1f1;
+    }
+
+    .topic p {
+      font-size: 16px;
+      color: #555;
+      padding: 0 20px 20px;
+    }
+
+    .topic img {
+  width: 80%;  /* Adjust the width */
+  height: auto;
+  border-radius: 0 0 10px 10px;
+  object-fit: cover;
+  display: block;  /* Ensure the image is treated as a block element */
+  margin-left: auto;  /* Center horizontally */
+  margin-right: auto;  /* Center horizontally */
+  margin-top: 20px;  /* Optional: Adds spacing above the image */
+}
+
+
+
+    .quiz {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz h2 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .quiz p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .quiz label {
+      font-size: 16px;
+      color: #555;
+      margin-right: 20px;
+    }
+
+    .quiz button {
+      padding: 12px 25px;
+      background-color: #13a4b1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .quiz button:hover {
+      background-color: #2f2cd9;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #18d851;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .topic {
+        padding: 15px;
+      }
+
+      .topic img {
+        max-height: 250px;
+      }
+
+      header h1 {
+        font-size: 30px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Science Section</h1>
+    <p>Read exciting stories with moral lessons and fun facts!</p>
+  </header>
+
+  <main>
+    <!-- Topic 1: The Planets -->
+    <div class="topic">
+      <h2>The Planets</h2>
+      <p>Did you know there are 8 planets in our solar system? They are:</p>
+      <ul>
+        <li>Mercury</li>
+        <li>Venus</li>
+        <li>Earth</li>
+        <li>Mars</li>
+        <li>Jupiter</li>
+        <li>Saturn</li>
+        <li>Uranus</li>
+        <li>Neptune</li>
+      </ul>
+      <p>Fun Fact: Jupiter is the largest planet, and it could fit 1,300 Earths inside it!</p>
+      <img src="planets.jpg" alt="Planets">
+    </div>
+
+    <!-- Topic 2: Water Cycle -->
+    <div class="topic">
+      <h2>The Water Cycle</h2>
+      <p>The water cycle has three main stages:</p>
+      <ol>
+        <li><strong>Evaporation:</strong> Water turns into vapor and rises into the sky.</li>
+        <li><strong>Condensation:</strong> Water vapor cools and forms clouds.</li>
+        <li><strong>Precipitation:</strong> Water falls back to the ground as rain, snow, or hail.</li>
+      </ol>
+      <p>Fun Fact: The water you drink today could have been part of a cloud thousands of years ago!</p>
+      <img src="water_cycle.jpg" alt="Water Cycle">
+    </div>
+
+    <!-- Topic 3: Animals of the Ocean -->
+    <div class="topic">
+      <h2>Animals of the Ocean</h2>
+      <p>The ocean is home to some amazing animals, including:</p>
+      <ul>
+        <li>Whales</li>
+        <li>Sharks</li>
+        <li>Jellyfish</li>
+        <li>Octopus</li>
+        <li>Dolphins</li>
+      </ul>
+      <p>Fun Fact: Dolphins are known for their intelligence and communication skills!</p>
+      <img src="Ocean_Animals.jpg" alt="Ocean Animals">
+    </div>
+
+    <!-- Topic 4: Volcanoes -->
+    <div class="topic">
+      <h2>Volcanoes</h2>
+      <p>Volcanoes are openings in the Earth's crust where molten rock, gas, and ash erupt. They can be found all over the world!</p>
+      <ul>
+        <li>Mount Vesuvius</li>
+        <li>Mount Fuji</li>
+        <li>Mount Etna</li>
+      </ul>
+      <p>Fun Fact: The world's largest volcano, Mauna Loa in Hawaii, is still active today!</p>
+      <img src="Volcanoes.jpg" alt="Volcanoes">
+    </div>
+
+    <!-- Topic 5: The Human Body -->
+    <div class="topic">
+      <h2>The Human Body</h2>
+      <p>The human body is a fascinating system made up of organs and tissues. Here are some key organs:</p>
+      <ul>
+        <li><strong>Brain:</strong> Controls the body and its functions.</li>
+        <li><strong>Heart:</strong> Pumps blood through the body.</li>
+        <li><strong>Lungs:</strong> Help you breathe.</li>
+        <li><strong>Stomach:</strong> Digests food.</li>
+      </ul>
+      <p>Fun Fact: The average human heart beats over 100,000 times a day!</p>
+      <img src="Human_Body.jpg" alt="Human Body">
+    </div>
+  </main>
+
+</body>
+
+</html>
+
+    <!-- Quiz Section -->
+<div class="quiz" style="background-color: #f4f8fc; padding: 20px; border-radius: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+  <h2 style="text-align: center; font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 32px; color: #ff6347;">Science Quiz</h2>
+  <form id="quiz-form" method="post">
+    <!-- Question 1 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>1. What is the largest planet in our solar system?</strong></p>
+    <label><input type="radio" name="q1" value="Earth" style="transform: scale(1.2); margin-right: 10px;"> Earth</label><br>
+    <label><input type="radio" name="q1" value="Jupiter" style="transform: scale(1.2); margin-right: 10px;"> Jupiter</label><br>
+    <label><input type="radio" name="q1" value="Mars" style="transform: scale(1.2); margin-right: 10px;"> Mars</label><br>
+    <label><input type="radio" name="q1" value="Saturn" style="transform: scale(1.2); margin-right: 10px;"> Saturn</label><br>
+
+    <!-- Question 2 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>2. What is the stage of the water cycle when clouds form?</strong></p>
+    <label><input type="radio" name="q2" value="Evaporation" style="transform: scale(1.2); margin-right: 10px;"> Evaporation</label><br>
+    <label><input type="radio" name="q2" value="Condensation" style="transform: scale(1.2); margin-right: 10px;"> Condensation</label><br>
+    <label><input type="radio" name="q2" value="Precipitation" style="transform: scale(1.2); margin-right: 10px;"> Precipitation</label><br>
+    <label><input type="radio" name="q2" value="Transpiration" style="transform: scale(1.2); margin-right: 10px;"> Transpiration</label><br>
+
+    <!-- Question 3 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>3. What is the chemical symbol for water?</strong></p>
+    <label><input type="radio" name="q3" value="H2O" style="transform: scale(1.2); margin-right: 10px;"> H2O</label><br>
+    <label><input type="radio" name="q3" value="O2" style="transform: scale(1.2); margin-right: 10px;"> O2</label><br>
+    <label><input type="radio" name="q3" value="CO2" style="transform: scale(1.2); margin-right: 10px;"> CO2</label><br>
+    <label><input type="radio" name="q3" value="H2" style="transform: scale(1.2); margin-right: 10px;"> H2</label><br>
+
+    <!-- Question 4 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>4. Which gas do plants primarily use for photosynthesis?</strong></p>
+    <label><input type="radio" name="q4" value="Oxygen" style="transform: scale(1.2); margin-right: 10px;"> Oxygen</label><br>
+    <label><input type="radio" name="q4" value="Carbon Dioxide" style="transform: scale(1.2); margin-right: 10px;"> Carbon Dioxide</label><br>
+    <label><input type="radio" name="q4" value="Nitrogen" style="transform: scale(1.2); margin-right: 10px;"> Nitrogen</label><br>
+    <label><input type="radio" name="q4" value="Hydrogen" style="transform: scale(1.2); margin-right: 10px;"> Hydrogen</label><br>
+
+    <!-- Question 5 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>5. What force keeps planets in orbit around the Sun?</strong></p>
+    <label><input type="radio" name="q5" value="Magnetic Force" style="transform: scale(1.2); margin-right: 10px;"> Magnetic Force</label><br>
+    <label><input type="radio" name="q5" value="Electromagnetic Force" style="transform: scale(1.2); margin-right: 10px;"> Electromagnetic Force</label><br>
+    <label><input type="radio" name="q5" value="Gravity" style="transform: scale(1.2); margin-right: 10px;"> Gravity</label><br>
+    <label><input type="radio" name="q5" value="Nuclear Force" style="transform: scale(1.2); margin-right: 10px;"> Nuclear Force</label><br>
+
+    <!-- Question 6 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>6. What is the boiling point of water at sea level?</strong></p>
+    <label><input type="radio" name="q6" value="90°C" style="transform: scale(1.2); margin-right: 10px;"> 90°C</label><br>
+    <label><input type="radio" name="q6" value="100°C" style="transform: scale(1.2); margin-right: 10px;"> 100°C</label><br>
+    <label><input type="radio" name="q6" value="110°C" style="transform: scale(1.2); margin-right: 10px;"> 110°C</label><br>
+    <label><input type="radio" name="q6" value="120°C" style="transform: scale(1.2); margin-right: 10px;"> 120°C</label><br>
+
+    <!-- Question 7 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>7. Which planet is known as the Red Planet?</strong></p>
+    <label><input type="radio" name="q7" value="Venus" style="transform: scale(1.2); margin-right: 10px;"> Venus</label><br>
+    <label><input type="radio" name="q7" value="Mars" style="transform: scale(1.2); margin-right: 10px;"> Mars</label><br>
+    <label><input type="radio" name="q7" value="Mercury" style="transform: scale(1.2); margin-right: 10px;"> Mercury</label><br>
+    <label><input type="radio" name="q7" value="Neptune" style="transform: scale(1.2); margin-right: 10px;"> Neptune</label><br>
+
+    <!-- Question 8 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>8. What is the basic unit of life?</strong></p>
+    <label><input type="radio" name="q8" value="Atom" style="transform: scale(1.2); margin-right: 10px;"> Atom</label><br>
+    <label><input type="radio" name="q8" value="Cell" style="transform: scale(1.2); margin-right: 10px;"> Cell</label><br>
+    <label><input type="radio" name="q8" value="Molecule" style="transform: scale(1.2); margin-right: 10px;"> Molecule</label><br>
+    <label><input type="radio" name="q8" value="Organ" style="transform: scale(1.2); margin-right: 10px;"> Organ</label><br>
+
+    <!-- Question 9 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>9. What is the primary source of energy for life on Earth?</strong></p>
+    <label><input type="radio" name="q9" value="The Moon" style="transform: scale(1.2); margin-right: 10px;"> The Moon</label><br>
+    <label><input type="radio" name="q9" value="The Sun" style="transform: scale(1.2); margin-right: 10px;"> The Sun</label><br>
+    <label><input type="radio" name="q9" value="The Earth" style="transform: scale(1.2); margin-right: 10px;"> The Earth</label><br>
+    <label><input type="radio" name="q9" value="The Stars" style="transform: scale(1.2); margin-right: 10px;"> The Stars</label><br>
+
+    <!-- Question 10 -->
+    <p style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 20px; color: #2d87a5;"><strong>10. Which organ pumps blood through the human body?</strong></p>
+    <label><input type="radio" name="q10" value="Liver" style="transform: scale(1.2); margin-right: 10px;"> Liver</label><br>
+    <label><input type="radio" name="q10" value="Heart" style="transform: scale(1.2); margin-right: 10px;"> Heart</label><br>
+    <label><input type="radio" name="q10" value="Lungs" style="transform: scale(1.2); margin-right: 10px;"> Lungs</label><br>
+    <label><input type="radio" name="q10" value="Kidneys" style="transform: scale(1.2); margin-right: 10px;"> Kidneys</label><br>
+
+    <!-- Submit Button -->
+    <div style="text-align: center; margin-top: 20px;">
+      <input type="submit" value="Submit" style="padding: 15px 30px; background-color: #ff6347; color: white; border: none; border-radius: 10px; font-size: 20px; cursor: pointer; transition: background-color 0.3s ease, transform 0.3s ease;">
+    </div>
+  </form>
+  <p id="score" style="font-size: 22px; font-weight: bold; color: #4caf50; text-align: center;"></p>
+</div>
+
+<script>
+  document.getElementById("quiz-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    const correctAnswers = {
+      q1: "Jupiter",
+      q2: "Condensation",
+      q3: "H2O",
+      q4: "Carbon Dioxide",
+      q5: "Gravity",
+      q6: "100°C",
+      q7: "Mars",
+      q8: "Cell",
+      q9: "The Sun",
+      q10: "Heart"
+    };
+
+    // Calculate the score
+    let score = 0;
+    for (const [question, answer] of Object.entries(correctAnswers)) {
+      const userAnswer = document.querySelector(`input[name="${question}"]:checked`);
+      if (userAnswer && userAnswer.value === answer) {
+        score++;
+      }
+    }
+
+    // Display the score with a fun animation
+    const scoreElement = document.getElementById("score");
+    scoreElement.textContent = `You scored ${score} out of ${Object.keys(correctAnswers).length}!`;
+    scoreElement.style.animation = 'fadeIn 1s ease-out';
+  });
+</script>
+
+<style>
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  input[type="radio"]:checked {
+    background-color: #ff6347;
+    transform: scale(1.5);
+  }
+
+  input[type="submit"]:hover {
+    background-color: #ff7f50;
+    transform: scale(1.1);
+  }
+
+  input[type="submit"]:active {
+    transform: scale(1);
+  }
+</style>

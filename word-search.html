@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Search for Kids</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fffcf2;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      width: 90%;
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: #fffbe7;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      text-align: center;
+      color: #ff6f61;
+      text-shadow: 2px 2px #ffa69e;
+    }
+    p {
+      text-align: center;
+      font-size: 20px;
+      color: #333;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      justify-items: center;
+      margin: 20px 0;
+    }
+    .grid div {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffecd1;
+      font-weight: bold;
+      border: 2px solid #ffb6b9;
+      font-size: 22px;
+      color: #333;
+      border-radius: 8px;
+      transition: transform 0.2s, background-color 0.3s;
+      cursor: pointer;
+    }
+    .grid div:hover {
+      transform: scale(1.2);
+      background-color: #ff6f61;
+      color: white;
+    }
+    .grid div.selected {
+      background-color: #ff6f61;
+      color: white;
+      box-shadow: 0 0 8px #ffa69e;
+    }
+    .word-list {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .word-list ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .word-list li {
+      background-color: #ffb6b9;
+      padding: 10px 15px;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .result {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .buttons button {
+      background-color: #ff6f61;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .buttons button:hover {
+      background-color: #ff3b2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Word Search Game</h1>
+    <p>Tap on the letters to form the hidden words!</p>
+
+    <div class="grid" id="grid">
+      <!-- Word search grid -->
+    </div>
+
+    <div class="word-list">
+      <h3>Words to Find:</h3>
+      <ul id="word-list">
+        <!-- Word list dynamically generated -->
+      </ul>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <div class="buttons">
+      <button id="reset">Reset</button>
+      <button id="next">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let selectedLetters = [];
+    const resultElement = document.getElementById('result');
+    const gridElement = document.getElementById('grid');
+    const wordListElement = document.getElementById('word-list');
+    const resetButton = document.getElementById('reset');
+    const nextButton = document.getElementById('next');
+
+    const wordBank = ['FOOD', 'HOUSE', 'CAT', 'BOY', 'GIRL', 'DOG', 'TREE', 'STAR', 'MOON', 'SUN', 'BIRD', 'FISH', 'HORSE', 'PLANE', 'TRAIN', 'SHOE', 'CHAIR', 'TABLE', 'CLOUD', 'WATER', 'EARTH', 'MOUSE', 'ZEBRA', 'LION', 'APPLE', 'GRAPE', 'PEAR', 'LEMON', 'BANANA', 'ORANGE'];
+    let correctWords = [];
+
+    function shuffleAlphabet() {
+      return alphabet.split('').sort(() => Math.random() - 0.5);
+    }
+
+    function generateRandomGrid() {
+      gridElement.innerHTML = '';
+      const shuffledAlphabet = shuffleAlphabet();
+
+      for (let i = 0; i < 100; i++) {
+        const letter = shuffledAlphabet[i % shuffledAlphabet.length];
+        const cell = document.createElement('div');
+        cell.classList.add('letter');
+        cell.dataset.letter = letter;
+        cell.textContent = letter;
+
+        cell.addEventListener('click', () => {
+          cell.classList.toggle('selected');
+
+          if (cell.classList.contains('selected')) {
+            selectedLetters.push(letter);
+          } else {
+            const index = selectedLetters.lastIndexOf(letter);
+            selectedLetters.splice(index, 1);
+          }
+
+          checkWord();
+        });
+
+        gridElement.appendChild(cell);
+      }
+    }
+
+    function generateRandomWords() {
+      wordListElement.innerHTML = '';
+      correctWords = [...wordBank.sort(() => Math.random() - 0.5).slice(0, 5)];
+
+      correctWords.forEach(word => {
+        const listItem = document.createElement('li');
+        listItem.textContent = word;
+        wordListElement.appendChild(listItem);
+      });
+    }
+
+    function checkWord() {
+      const selectedWord = selectedLetters.join('');
+
+      if (correctWords.includes(selectedWord)) {
+        resultElement.textContent = `You found the word: ${selectedWord}!`;
+        resultElement.style.color = 'green';
+        setTimeout(() => {
+          resultElement.textContent = '';
+          document.querySelectorAll('.letter.selected').forEach(cell => cell.classList.remove('selected'));
+          selectedLetters = [];
+        }, 2000);
+      } else {
+        resultElement.textContent = `Selected word: ${selectedWord}`;
+        resultElement.style.color = 'red';
+      }
+    }
+
+    resetButton.addEventListener('click', () => {
+      selectedLetters = [];
+      document.querySelectorAll('.letter.selected').forEach(cell => cell.classList.remove('selected'));
+      resultElement.textContent = '';
+    });
+
+    nextButton.addEventListener('click', () => {
+      generateRandomGrid();
+      generateRandomWords();
+      resultElement.textContent = '';
+      selectedLetters = [];
+    });
+
+    // Initialize the game
+    generateRandomGrid();
+    generateRandomWords();
+  </script>
+</body>
+</html>

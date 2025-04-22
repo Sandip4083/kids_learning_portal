@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shape and Pattern Recognition Game</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background-color: #ffebcd;
+      text-align: center;
+      color: #4b0082;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #ff6347;
+      font-size: 2.5em;
+      margin-top: 20px;
+    }
+
+    .instructions {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .game-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .shape {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      cursor: pointer;
+      border-radius: 10px;
+      border: 2px solid #4b0082;
+    }
+
+    .circle {
+      background-color: #ff6347;
+      border-radius: 50%;
+    }
+
+    .square {
+      background-color: #32cd32;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 100px solid #ff1493;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .hexagon {
+      width: 100px;
+      height: 100px;
+      background-color: #32cd32;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+
+    .star {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 100px solid transparent;
+      position: relative;
+    }
+    .star:after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: -50px;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-top: 100px solid #ff1493;
+    }
+
+    .answer-message {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #32cd32;
+    }
+
+    button {
+      background-color: #ff1493;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+    }
+
+    #display-shape {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+    }
+
+    #game-container {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Shape and Pattern Recognition Game</h1>
+  <p class="instructions">Match the displayed shape with one of the shapes below!</p>
+
+  <!-- Shape to be matched -->
+  <div id="display-shape"></div>
+
+  <!-- Shape options -->
+  <div class="game-container" id="game-container">
+    <!-- Shape options will be dynamically inserted here -->
+  </div>
+
+  <!-- Answer message -->
+  <div class="answer-message" id="answer-message"></div>
+
+  <!-- Start New Game Button -->
+  <button onclick="startGame()">Start New Game</button>
+
+  <script>
+    const shapes = ['circle', 'square', 'triangle', 'hexagon', 'star'];
+    let selectedShape = '';
+    let gameStarted = false;
+
+    // Function to start the game
+    function startGame() {
+      gameStarted = true;
+      document.getElementById('answer-message').innerText = '';
+      document.getElementById('game-container').innerHTML = '';
+      selectedShape = generateRandomShape();
+      displayShape(selectedShape);
+      generateShapeOptions(selectedShape);
+    }
+
+    // Function to generate a random shape (circle, square, triangle, hexagon, star)
+    function generateRandomShape() {
+      const randomIndex = Math.floor(Math.random() * shapes.length);
+      return shapes[randomIndex];
+    }
+
+    // Function to display the random shape
+    function displayShape(shape) {
+      const displayShapeDiv = document.getElementById('display-shape');
+      displayShapeDiv.innerHTML = ''; // Clear previous shape
+
+      if (shape === 'circle') {
+        displayShapeDiv.classList.add('circle');
+      } else if (shape === 'square') {
+        displayShapeDiv.classList.add('square');
+      } else if (shape === 'triangle') {
+        displayShapeDiv.classList.add('triangle');
+      } else if (shape === 'hexagon') {
+        displayShapeDiv.classList.add('hexagon');
+      } else if (shape === 'star') {
+        displayShapeDiv.classList.add('star');
+      }
+    }
+
+    // Function to generate shape options on the game board
+    function generateShapeOptions(selectedShape) {
+      const gameContainer = document.getElementById('game-container');
+      let availableShapes = [...shapes];
+      
+      // Remove the selected shape from the available options to avoid repetition
+      availableShapes = availableShapes.filter(shape => shape !== selectedShape);
+
+      // Shuffle the remaining shapes and pick three random ones
+      const randomOptions = shuffle([selectedShape, ...getRandomShapes(availableShapes)]);
+
+      // Add the shapes as clickable options
+      randomOptions.forEach(shape => {
+        const shapeDiv = document.createElement('div');
+        shapeDiv.classList.add('shape');
+        
+        if (shape === 'circle') {
+          shapeDiv.classList.add('circle');
+        } else if (shape === 'square') {
+          shapeDiv.classList.add('square');
+        } else if (shape === 'triangle') {
+          shapeDiv.classList.add('triangle');
+        } else if (shape === 'hexagon') {
+          shapeDiv.classList.add('hexagon');
+        } else if (shape === 'star') {
+          shapeDiv.classList.add('star');
+        }
+
+        shapeDiv.onclick = function() {
+          checkAnswer(shape);
+        };
+
+        gameContainer.appendChild(shapeDiv);
+      });
+    }
+
+    // Function to get three random shapes from the remaining shapes
+    function getRandomShapes(availableShapes) {
+      const randomShapes = [];
+      while (randomShapes.length < 2) {
+        const randomIndex = Math.floor(Math.random() * availableShapes.length);
+        randomShapes.push(availableShapes[randomIndex]);
+        availableShapes.splice(randomIndex, 1); // Remove selected shape to avoid repetition
+      }
+      return randomShapes;
+    }
+
+    // Function to shuffle the array randomly
+    function shuffle(arr) {
+      return arr.sort(() => Math.random() - 0.5);
+    }
+
+    // Function to check if the selected shape matches the displayed shape
+    function checkAnswer(selected) {
+      const answerMessage = document.getElementById('answer-message');
+      if (gameStarted) {
+        if (selected === selectedShape) {
+          answerMessage.innerText = `Correct! You selected the ${selected} shape.`;
+        } else {
+          answerMessage.innerText = 'Oops! Try again!';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

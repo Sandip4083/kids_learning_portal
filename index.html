@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids' Learning Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffecb3, #ffe0f0);
+      color: #444;
+    }
+
+    header {
+      background: linear-gradient(to right, #ff6f91, #ffc107);
+      text-align: center;
+      padding: 20px 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin: 0;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    header p {
+      font-size: 1.5rem;
+      margin: 10px 0 0;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .category {
+      text-align: center;
+      transform: scale(1);
+      transition: transform 0.3s;
+    }
+
+    .category:hover {
+      transform: scale(1.1);
+    }
+
+    .button {
+      display: block;
+      text-decoration: none;
+      font-size: 1.8rem;
+      color: #fff;
+      background: linear-gradient(to right, #ff8a65, #ff5252);
+      padding: 20px;
+      border-radius: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .button:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .button.math {
+      background: linear-gradient(to right, #42a5f5, #29b6f6);
+    }
+
+    .button.science {
+      background: linear-gradient(to right, #66bb6a, #43a047);
+    }
+
+    .button.stories {
+      background: linear-gradient(to right, #ffca28, #ff7043);
+    }
+
+    .button.games {
+      background: linear-gradient(to right, #ec407a, #d81b60);
+    }
+
+    .button i {
+      margin-right: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 10px;
+      background: #3e2723;
+      color: #fff;
+      font-size: 1.2rem;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer i {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fas fa-child"></i> Kids' Learning Portal</h1>
+    <p>Learn and play your way to success!</p>
+  </header>
+
+  <main>
+    <section class="categories">
+      <div class="category">
+        <a href="math.html" class="button math"><i class="fas fa-calculator"></i> Math</a>
+      </div>
+      <div class="category">
+        <a href="science.html" class="button science"><i class="fas fa-flask"></i> Science</a>
+      </div>
+      <div class="category">
+        <a href="stories.html" class="button stories"><i class="fas fa-book"></i> Stories</a>
+      </div>
+      <div class="category">
+        <a href="games.html" class="button games"><i class="fas fa-gamepad"></i> Games</a>
+      </div>
+    </section>
+  </main>
+
+  <footer style="position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; background: #3e2723; color: #fff; padding: 20px 10px; font-size: 1.2rem; box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);">
+    <p>&copy; 2025 Kids' Learning Portal. All rights reserved. | Designed By Sandip <i class="fas fa-heart" style="color: red;"></i></p>
+  </footer>
+  
+</body>
+</html>

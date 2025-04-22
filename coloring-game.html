@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coloring Game</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fce4ec;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #ff4081;
+      text-shadow: 2px 2px #f8bbd0;
+      margin-top: 20px;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+    }
+    .game-container {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .palette {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .color {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #ccc;
+      transition: transform 0.3s;
+    }
+    .color:hover {
+      transform: scale(1.2);
+    }
+    .diagram-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    svg {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      background-color: #f8bbd0;
+    }
+    button {
+      background-color: #ff4081;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #f50057;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coloring Game</h1>
+  <p>Unleash your creativity by coloring a natural diagram!</p>
+
+  <div class="game-container">
+    <!-- Diagram (SVG) container -->
+    <div class="diagram-container" id="diagram-container">
+      <h3>Color the diagram!</h3>
+      <!-- Random SVG images will be inserted here -->
+    </div>
+
+    <!-- Palette for color selection -->
+    <div class="palette" id="palette">
+      <div class="color" style="background-color: red;" data-color="red"></div>
+      <div class="color" style="background-color: green;" data-color="green"></div>
+      <div class="color" style="background-color: blue;" data-color="blue"></div>
+      <div class="color" style="background-color: yellow;" data-color="yellow"></div>
+      <div class="color" style="background-color: brown;" data-color="brown"></div>
+      <div class="color" style="background-color: purple;" data-color="purple"></div>
+    </div>
+
+    <!-- Reset button -->
+    <button id="reset">Reset</button>
+
+    <!-- Next button -->
+    <button id="next">Next</button>
+  </div>
+
+  <script>
+    const diagramContainer = document.getElementById('diagram-container');
+    const paletteElement = document.getElementById('palette');
+    const resetButton = document.getElementById('reset');
+    const nextButton = document.getElementById('next');
+    let selectedColor = 'red';
+
+    // Array of random SVG images
+    const svgImages = [
+      `<svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="40" fill="transparent" stroke="black" stroke-width="2"/><polygon points="20,30 50,10 80,30" fill="transparent" stroke="black" stroke-width="2"/><rect x="40" y="50" width="20" height="20" fill="transparent" stroke="black" stroke-width="2"/><rect x="25" y="35" width="15" height="15" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // House
+      `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="transparent" stroke="black" stroke-width="2"/><path d="M 50 20 Q 40 30 50 40 Q 60 30 50 20" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // Flower
+      `<svg viewBox="0 0 100 100"><path d="M 10 50 C 20 20, 80 20, 90 50 C 80 80, 20 80, 10 50" fill="transparent" stroke="black" stroke-width="2"/></svg>`, // Tree
+      `<svg viewBox="0 0 100 100"><polygon points="10,80 50,20 90,80" fill="transparent" stroke="black" stroke-width="2"/></svg>`, // Mountain
+      `<svg viewBox="0 0 100 100"><rect x="30" y="30" width="20" height="40" fill="transparent" stroke="black" stroke-width="2"/><circle cx="40" cy="80" r="10" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // Balloon
+      `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="transparent" stroke="black" stroke-width="2"/><circle cx="50" cy="50" r="10" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // Apple tree
+      `<svg viewBox="0 0 100 100"><circle cx="70" cy="30" r="10" fill="transparent" stroke="black" stroke-width="2"/><circle cx="50" cy="60" r="10" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // Balloon
+      `<svg viewBox="0 0 100 100"><circle cx="50" cy="80" r="15" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // Sun
+      `<svg viewBox="0 0 100 100"><polygon points="30,80 50,30 70,80" fill="transparent" stroke="black" stroke-width="2" /></svg>`,  // Triangle flower
+      `<svg viewBox="0 0 100 100"><polygon points="30,30 50,10 70,30" fill="transparent" stroke="black" stroke-width="2"/><polygon points="40,60 50,30 60,60" fill="transparent" stroke="black" stroke-width="2"/></svg>`,  // Star
+    ];
+
+    // Function to set a random diagram
+    function setRandomDiagram() {
+      const randomIndex = Math.floor(Math.random() * svgImages.length);
+      diagramContainer.innerHTML = svgImages[randomIndex];
+      addSVGColoringEvent();
+    }
+
+    // Add coloring functionality to SVG
+    function addSVGColoringEvent() {
+      const svgElement = diagramContainer.querySelector('svg');
+      if (svgElement) {
+        svgElement.addEventListener('click', function (e) {
+          if (e.target.tagName === 'path' || e.target.tagName === 'circle' || e.target.tagName === 'rect' || e.target.tagName === 'polygon') {
+            e.target.setAttribute('fill', selectedColor);
+          }
+        });
+      }
+    }
+
+    // Color selection
+    paletteElement.addEventListener('click', function(e) {
+      if (e.target.classList.contains('color')) {
+        selectedColor = e.target.getAttribute('data-color');
+      }
+    });
+
+    // Reset the diagram and colors
+    resetButton.addEventListener('click', function() {
+      setRandomDiagram();
+    });
+
+    // Next button (optional functionality to proceed)
+    nextButton.addEventListener('click', function() {
+      setRandomDiagram();
+    });
+
+    // Initialize game with a random diagram
+    setRandomDiagram();
+  </script>
+</body>
+</html>

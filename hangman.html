@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangman Game for Kids</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    .word-container {
+      font-size: 24px;
+      letter-spacing: 10px;
+      margin: 20px;
+    }
+    .letter {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-bottom: 2px solid #333;
+      text-transform: uppercase;
+    }
+    .hint-container {
+      margin-top: 20px;
+    }
+    .hint-button, .reset-button {
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .hint-button:hover, .reset-button:hover {
+      background-color: #ff6347;
+    }
+    .hint-display {
+      margin-top: 10px;
+      font-size: 18px;
+      font-style: italic;
+      color: #007acc;
+    }
+    .alphabet-container {
+      margin-top: 20px;
+    }
+    .alphabet-button {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      font-size: 18px;
+      color: white;
+      background-color: #007acc;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .alphabet-button:hover {
+      background-color: #005b99;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hangman Game for Kids</h1>
+  <p>Guess the word by selecting letters!</p>
+
+  <div class="word-container" id="wordContainer"></div>
+  <div class="hint-container">
+    <button class="hint-button" id="hintButton">Hint</button>
+    <div class="hint-display" id="hintDisplay"></div>
+  </div>
+  <div class="alphabet-container" id="alphabetContainer"></div>
+  <div class="message" id="message"></div>
+  <button class="reset-button" id="resetButton" style="display:none;">Reset</button>
+
+  <script>
+    const words = [
+  { word: "ELEPHANT", hint: "A large animal with a trunk" },
+  { word: "APPLE", hint: "A fruit that keeps the doctor away" },
+  { word: "BUTTERFLY", hint: "An insect with colorful wings" },
+  { word: "RAINBOW", hint: "A colorful arc in the sky" },
+  { word: "CARROT", hint: "An orange vegetable" },
+  { word: "LION", hint: "The king of the jungle" },
+  { word: "GIRAFFE", hint: "An animal with a long neck" },
+  { word: "MONKEY", hint: "An animal that loves bananas" },
+  { word: "PINEAPPLE", hint: "A tropical fruit with spiky skin" },
+  { word: "BANANA", hint: "A long yellow fruit" },
+  { word: "ZEBRA", hint: "A striped animal" },
+  { word: "PENGUIN", hint: "A bird that can't fly but swims" },
+  { word: "CROCODILE", hint: "A large reptile with sharp teeth" },
+  { word: "OCEAN", hint: "A vast body of saltwater" },
+  { word: "MOUNTAIN", hint: "A tall natural elevation of the earth" },
+  { word: "FLOWER", hint: "A plant part that is often colorful" },
+  { word: "CANDLE", hint: "Gives light when it burns" },
+  { word: "BALLOON", hint: "A rubber object filled with air" },
+  { word: "UMBRELLA", hint: "Protects you from rain" },
+  { word: "CHERRY", hint: "A small red fruit" },
+  { word: "ORANGE", hint: "A citrus fruit and also a color" },
+  { word: "SPARROW", hint: "A small, common bird" },
+  { word: "STRAWBERRY", hint: "A red fruit with seeds on the outside" },
+  { word: "PLANET", hint: "Earth is one of these" },
+  { word: "KANGAROO", hint: "An animal that hops and has a pouch" },
+  { word: "CACTUS", hint: "A plant that grows in deserts" },
+  { word: "PEACOCK", hint: "A bird with a colorful tail" },
+  { word: "DRAGONFLY", hint: "An insect with large wings" },
+  { word: "VOLCANO", hint: "Erupts with lava and ash" },
+  { word: "CLOUD", hint: "A white or gray object in the sky" }
+];
+
+
+    const wordContainer = document.getElementById("wordContainer");
+    const hintButton = document.getElementById("hintButton");
+    const hintDisplay = document.getElementById("hintDisplay");
+    const alphabetContainer = document.getElementById("alphabetContainer");
+    const message = document.getElementById("message");
+    const resetButton = document.getElementById("resetButton");
+
+    let currentWord, currentHint, guessedLetters;
+
+    function startGame() {
+      // Pick a random word and reset variables
+      const randomIndex = Math.floor(Math.random() * words.length);
+      currentWord = words[randomIndex].word;
+      currentHint = words[randomIndex].hint;
+      guessedLetters = [];
+      wordContainer.innerHTML = "";
+      hintDisplay.innerText = "";
+      message.innerText = "";
+      resetButton.style.display = "none";
+
+      // Display blank spaces for the word
+      for (let i = 0; i < currentWord.length; i++) {
+        const letterElement = document.createElement("span");
+        letterElement.classList.add("letter");
+        letterElement.innerText = "_";
+        wordContainer.appendChild(letterElement);
+      }
+
+      // Create alphabet buttons
+      alphabetContainer.innerHTML = "";
+      for (let i = 65; i <= 90; i++) {
+        const letter = String.fromCharCode(i);
+        const button = document.createElement("button");
+        button.classList.add("alphabet-button");
+        button.innerText = letter;
+        button.addEventListener("click", () => guessLetter(letter, button));
+        alphabetContainer.appendChild(button);
+      }
+    }
+
+    function guessLetter(letter, button) {
+      button.disabled = true;
+      guessedLetters.push(letter);
+
+      let correctGuess = false;
+      const letterElements = document.querySelectorAll(".letter");
+
+      for (let i = 0; i < currentWord.length; i++) {
+        if (currentWord[i] === letter) {
+          correctGuess = true;
+          letterElements[i].innerText = letter;
+        }
+      }
+
+      if (!correctGuess) {
+        button.style.backgroundColor = "#ff4500"; // Incorrect guess
+      } else {
+        button.style.backgroundColor = "#32cd32"; // Correct guess
+      }
+
+      checkGameStatus();
+    }
+
+    function checkGameStatus() {
+      const letterElements = document.querySelectorAll(".letter");
+      const guessedWord = Array.from(letterElements)
+        .map(letterElement => letterElement.innerText)
+        .join("");
+
+      if (guessedWord === currentWord) {
+        message.innerText = "🎉 You Win!";
+        disableAllButtons();
+        resetButton.style.display = "block";
+      } else if (guessedLetters.length >= currentWord.length + 6) {
+        message.innerText = `❌ Game Over! The word was "${currentWord}"`;
+        disableAllButtons();
+        resetButton.style.display = "block";
+      }
+    }
+
+    function disableAllButtons() {
+      const buttons = document.querySelectorAll(".alphabet-button");
+      buttons.forEach(button => (button.disabled = true));
+    }
+
+    resetButton.addEventListener("click", startGame);
+
+    hintButton.addEventListener("click", () => {
+      hintDisplay.innerText = `Hint: ${currentHint}`;
+    });
+
+    startGame();
+  </script>
+</body>
+</html>

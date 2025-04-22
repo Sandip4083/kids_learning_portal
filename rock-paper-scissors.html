@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background-color: #ffebcd;
+      text-align: center;
+      color: #4b0082;
+    }
+
+    h1 {
+      color: #ff6347;
+      font-size: 3em;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #ff6347;
+    }
+
+    .choices {
+      margin-top: 30px;
+    }
+
+    button {
+      background-color: #ff1493;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      margin: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+      transform: scale(1.1);
+    }
+
+    .images {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .images img {
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      margin: 0 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .images img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+    }
+
+    .result {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #32cd32;
+    }
+
+    .computer-choice, .player-choice {
+      font-size: 1.2em;
+      margin-top: 20px;
+      color: #32cd32;
+    }
+
+    .rules {
+      font-size: 1.2em;
+      color: #ff6347;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <p>Challenge the computer to a classic game!</p>
+
+  <div class="rules">
+    <p><strong>How to play:</strong></p>
+    <ul>
+      <li><strong>Rock</strong> beats <strong>Scissors</strong></li>
+      <li><strong>Scissors</strong> beats <strong>Paper</strong></li>
+      <li><strong>Paper</strong> beats <strong>Rock</strong></li>
+    </ul>
+    <p>Click on Rock, Paper, or Scissors to play!</p>
+  </div>
+
+  <div class="choices">
+    <button onclick="play('rock')">Rock</button>
+    <button onclick="play('paper')">Paper</button>
+    <button onclick="play('scissors')">Scissors</button>
+  </div>
+
+  <div class="images">
+    <img src="https://img.icons8.com/ios/452/rock.png" alt="Rock" onclick="play('rock')">
+    <img src="https://img.icons8.com/ios/452/paper.png" alt="Paper" onclick="play('paper')">
+    <img src="https://img.icons8.com/ios/452/scissors.png" alt="Scissors" onclick="play('scissors')">
+  </div>
+
+  <div class="computer-choice" id="computer-choice"></div>
+  <div class="player-choice" id="player-choice"></div>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const choices = ['rock', 'paper', 'scissors'];
+
+    function play(playerChoice) {
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      let result = '';
+
+      // Display choices
+      document.getElementById('player-choice').innerHTML = `You chose: <strong>${capitalize(playerChoice)}</strong>`;
+      document.getElementById('computer-choice').innerHTML = `Computer chose: <strong>${capitalize(computerChoice)}</strong>`;
+
+      if (playerChoice === computerChoice) {
+        result = 'It\'s a tie!';
+      } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        result = 'You win!';
+      } else {
+        result = 'You lose!';
+      }
+
+      document.getElementById('result').innerHTML = result;
+    }
+
+    // Capitalize first letter of choice for neatness
+    function capitalize(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+  </script>
+</body>
+</html>

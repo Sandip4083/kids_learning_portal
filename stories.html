@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stories Section</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background: linear-gradient(135deg, #ff9a8b, #ff6a88);
+      animation: backgroundColorChange 5s infinite alternate;
+    }
+
+    @keyframes backgroundColorChange {
+      0% {
+        background: linear-gradient(135deg, #ff9a8b, #ff6a88);
+      }
+
+      100% {
+        background: linear-gradient(135deg, #f8d7c6, #ffe4e1);
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 40px;
+      background-color: #ff5e57;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      animation: bounceIn 1s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+
+      60% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    header p {
+      font-size: 1.4em;
+      margin-top: 10px;
+      font-weight: bold;
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .story {
+      border: 2px solid #ff5e57;
+      padding: 25px;
+      border-radius: 15px;
+      background-color: #fff;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      position: relative;
+      animation: slideUp 1s ease-out;
+    }
+
+    @keyframes slideUp {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .story:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .story h2 {
+      color: #ff5e57;
+      font-size: 2em;
+      margin-top: 0;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .story p {
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    .story strong {
+      color: #ff5e57;
+      font-weight: bold;
+    }
+
+    .story img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 20px;
+      border: 3px solid #ff5e57;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      animation: bounceIn 1s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0);
+      }
+
+      60% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .story img:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #ff5e57;
+      color: white;
+      font-size: 1.2em;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-radius: 15px 15px 0 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 2s ease-out;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Make story sections responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      header p {
+        font-size: 1.2em;
+      }
+
+      .story h2 {
+        font-size: 1.6em;
+      }
+
+      .story {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Stories Section</h1>
+    <p>Read exciting stories with moral lessons!</p>
+  </header>
+
+  <!-- Story 1 -->
+  <section class="story">
+    <h2>1. The Lion and the Mouse</h2>
+    <img src="lion_and_mouse.jpg" alt="Lion and Mouse">
+    <p>Once upon a time, a lion was sleeping in the jungle. A little mouse ran up and down on him, which woke him up.
+      The lion caught the mouse and was about to eat him.</p>
+    <p>The mouse pleaded, "Please let me go! Someday, I will help you!" The lion laughed and let the mouse go.</p>
+    <p>A few days later, the lion got trapped in a hunter's net. He roared for help. The mouse heard him and rushed to
+      the spot. The mouse chewed the ropes of the net and set the lion free.</p>
+    <p><strong>Moral:</strong> Kindness is never wasted, and even the smallest creature can help in times of need.</p>
+  </section>
+
+  <!-- Story 2 -->
+  <section class="story">
+    <h2>2. The Tortoise and the Hare</h2>
+    <img src="tortoise_and_hare.jpg" alt="Tortoise and Hare">
+    <p>A hare once made fun of a slow-moving tortoise. Tired of the hare’s taunts, the tortoise challenged him to a
+      race. The hare, confident of his speed, quickly ran far ahead and decided to take a nap midway.</p>
+    <p>Meanwhile, the tortoise kept moving slowly and steadily and eventually crossed the finish line while the hare
+      was still sleeping.</p>
+    <p><strong>Moral:</strong> Slow and steady wins the race.</p>
+  </section>
+
+  <!-- Story 3 -->
+  <section class="story">
+    <h2>3. The Fox and the Grapes</h2>
+    <img src="fox_and_grapes.jpg" alt="Fox and Grapes">
+    <p>A hungry fox saw a bunch of grapes hanging high on a vine. He jumped and tried to grab them but failed. After
+      several attempts, he gave up and walked away, muttering, "Those grapes are probably sour anyway."</p>
+    <p><strong>Moral:</strong> It’s easy to despise what you cannot have.</p>
+  </section>
+
+  <!-- Story 4 -->
+  <section class="story">
+    <h2>4. The Boy Who Cried Wolf</h2>
+    <img src="boy_who_cry_wolf.jpg" alt="Boy Who Cried Wolf" style="max-width: 35%; height: auto;">
+    <p>A shepherd boy, bored while watching his flock, cried out "Wolf! Wolf!" just for fun. The villagers ran to
+      help, only to find there was no wolf. He repeated this trick several times. One day, a wolf actually came, but
+      when the boy cried out for help, the villagers ignored him, thinking it was another false alarm.</p>
+    <p>The wolf attacked the flock, and the boy learned a hard lesson.</p>
+    <p><strong>Moral:</strong> Liars are not believed, even when they tell the truth.</p>
+  </section>
+
+  <!-- Story 5 -->
+  <section class="story">
+    <h2>5. The Ant and the Grasshopper</h2>
+    <img src="ant_and_grasshopper.jpg" alt="Ant and Grasshopper">
+    <p>One summer, a grasshopper sang and played while an ant worked hard to gather food for the winter. When winter
+      came, the grasshopper had no food and begged the ant for help. The ant reminded the grasshopper of his laziness
+      and refused to share.</p>
+    <p><strong>Moral:</strong> Work today to prepare for tomorrow.</p>
+  </section>
+
+  <!-- Story 6 -->
+  <section class="story">
+    <h2>6. The Dog and His Reflection</h2>
+    <img src="dog_reflection.jpg" alt="Dog and His Reflection" style="max-width: 25%; height: auto;">
+    <p>A dog found a meat and was carrying it in his mouth. As he crossed a bridge, he looked down into the water and
+      saw his reflection. Thinking it was another dog with a bigger meat, he dropped his own meat and tried to snatch
+      the larger one. Of course, he lost both meat.</p>
+    <p><strong>Moral:</strong> Don't be greedy, or you might lose what you already have.</p>
+  </section>
+
+  <!-- Story 7 -->
+  <section class="story">
+    <h2>7. The Crow and the Pitcher</h2>
+    <img src="crow_and_pitcher.jpg" alt="Crow and Pitcher" style="max-width: 40%; height: auto;">
+    <p>A thirsty crow found a pitcher with a little water at the bottom. The crow dropped small pebbles into the
+      pitcher, and as the water rose, he drank it.</p>
+    <p><strong>Moral:</strong> Necessity is the mother of invention.</p>
+  </section>
+
+  <!-- Story 8 -->
+  <section class="story">
+    <h2>8. The Golden Goose</h2>
+    <img src="golden_goose.jpg" alt="Golden Goose" style="max-width: 25%; height: auto;">
+    <p>A poor farmer had a goose that laid a golden egg every day. One day, he thought, "If I cut the goose open, I
+      will get all the golden eggs at once." He did so, but found nothing inside the goose. The farmer lost both the
+      goose and the golden eggs.</p>
+    <p><strong>Moral:</strong> Greed can lead to loss of everything.</p>
+  </section>
+
+  <!-- Story 9 -->
+  <section class="story">
+    <h2>9. The Girl and the Starfish</h2>
+    <img src="boy_starfish.jpg" alt="Boy and Starfish" style="max-width: 25%; height: auto;">
+    <p>A girl was walking along the beach, picking up starfish and throwing them back into the ocean. An old man asked,
+      "Why sister? There are thousands of starfish, and you can’t save them all." The girl picked up another starfish
+      and said, "I made a difference to this one!"</p>
+    <p><strong>Moral:</strong> Every small effort counts, and you can make a difference.</p>
+  </section>
+
+  <!-- Story 10 -->
+  <section class="story">
+    <h2>10. The Wise Owl</h2>
+    <img src="wise_owl.jpg" alt="Wise Owl" style="max-width: 25%; height: auto;">
+    <p>Once, in a forest, a young bird asked a wise old owl, "How did you become so wise?" The owl replied, "I listened
+      more than I spoke, observed more than I acted, and learned from everyone and everything around me."</p>
+    <p>The bird began practicing this and soon became wiser with time, helping others in need.</p>
+    <p><strong>Moral:</strong> Wisdom comes from observation, patience, and listening.</p>
+  </section>
+
+  </main>
+  <footer>
+    <p>&copy; 2025 Kids' Learning Portal. All rights reserved. | Designed By Sandip <i class="fas fa-heart" style="color: red;"></i></p>
+  </footer>
+</body>
+
+</html>

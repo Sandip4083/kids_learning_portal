@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Match</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fffbec;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #ff6f61;
+      text-shadow: 2px 2px #ffa69e;
+      margin-top: 20px;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+    }
+    .game-container {
+      width: 90%;
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: #fffbe7;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      width: 60px;
+      height: 80px;
+      background-color: #ffb6b9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.1);
+      background-color: #ff6f61;
+    }
+    .card.flipped {
+      background-color: #ff6f61;
+      transform: rotateY(180deg);
+      color: white;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+    button {
+      background-color: #ff6f61;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #ff3b2f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Memory Match</h1>
+  <p>Flip the cards and find matching pairs!</p>
+  
+  <div class="game-container">
+    <div class="grid" id="grid">
+      <!-- Cards will be dynamically generated here -->
+    </div>
+    <div class="result" id="result"></div>
+    <button id="reset">Reset</button>
+  </div>
+
+  <script>
+    const cardValues = ['🍎', '🍎', '🍌', '🍌', '🍇', '🍇', '🍒', '🍒', '🍉', '🍉', '🍓', '🍓', '🥭', '🥭', '🍍', '🍍'];
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    const gridElement = document.getElementById('grid');
+    const resultElement = document.getElementById('result');
+    const resetButton = document.getElementById('reset');
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function createGrid() {
+      gridElement.innerHTML = '';
+      matchedPairs = 0;
+      resultElement.textContent = '';
+      flippedCards = [];
+
+      const shuffledValues = shuffle([...cardValues]);
+
+      shuffledValues.forEach((value, index) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.value = value;
+
+        card.addEventListener('click', () => {
+          if (!card.classList.contains('flipped') && flippedCards.length < 2) {
+            card.textContent = value;
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+              checkMatch();
+            }
+          }
+        });
+
+        gridElement.appendChild(card);
+      });
+    }
+
+    function checkMatch() {
+      const [card1, card2] = flippedCards;
+
+      if (card1.dataset.value === card2.dataset.value) {
+        matchedPairs++;
+        flippedCards = [];
+
+        if (matchedPairs === cardValues.length / 2) {
+          resultElement.textContent = 'You found all pairs! Great job!';
+        }
+      } else {
+        setTimeout(() => {
+          card1.textContent = '';
+          card2.textContent = '';
+          card1.classList.remove('flipped');
+          card2.classList.remove('flipped');
+          flippedCards = [];
+        }, 1000);
+      }
+    }
+
+    resetButton.addEventListener('click', createGrid);
+
+    // Initialize the game
+    createGrid();
+  </script>
+</body>
+</html>
