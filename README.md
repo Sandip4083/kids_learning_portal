@@ -2,7 +2,7 @@
 # Kids-_Learning_Portal
 I developed this portfolio website using HTML5, CSS3 and JavaScript. 
 <br>
-To see the website visit https://sandip4083.github.io/Kids-_Learning_Portal/
+To see the website visit https://sandip4083.github.io/kids_learning_portal/
 # Kids' Learning Portal 🎓🧒
 
 An interactive and fun web-based learning portal designed for children to explore educational games, science concepts, math activities, and stories — all in one place!
