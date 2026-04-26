@@ -8,7 +8,7 @@ A beautifully designed, highly interactive, and gamified **Educational Portal fo
 
 No backend required! All progress, XP, and streaks are securely saved locally using advanced React Context and `localStorage`.
 
-### 🌟 [Live Demo Available Here!](https://sandip4083.github.io/kids_learning_portal/)
+### 🌟 [Live Demo Available Here!](https://kids-learning-portal-xi.vercel.app/)
 
 ---
 
